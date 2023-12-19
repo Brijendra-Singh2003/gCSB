@@ -1,34 +1,28 @@
-const { Game } = require("../db/schema/game");
+const Games = require("./game.mongo");
+const { deleteScores } = require("./score.model");
 
 async function getOneGame(id) {
-    const game = await Game.findById(id);
-    // console.log(game);
-    return game;
+    return await Games.findById(id);
 }
 
 async function getAllGames(series) {
-    if (series) 
-        return await Game.find({series: series});
-    
-    return await Game.find();
+    if (series) return await Games.find({ series: series });
+
+    return await Games.find();
 }
 
 async function saveGame(game) {
-    const response = { message: "updated" };
-
-    if(game._id)
-        await Game.findByIdAndUpdate(game._id, game);
-    else {
-        await Game.create(game);
-        response.message = "created";
+    try {
+        return await Games.updateOne({ name: game.name }, game, { upsert: true });
+    } catch (error) {
+        console.log("error occured when saving game: ", game, error);
     }
-
-    return response;
 }
 
 async function deleteGame(id) {
-    await Game.findByIdAndDelete(id);
-    return {message: "deleted"};
+    const score = deleteScores(id);
+    const game = Games.findByIdAndDelete(id);
+    return await Promise.allSettled([score, game]);
 }
 
 module.exports = {
@@ -36,4 +30,4 @@ module.exports = {
     getAllGames,
     saveGame,
     deleteGame,
-}
+};

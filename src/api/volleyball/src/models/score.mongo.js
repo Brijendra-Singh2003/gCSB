@@ -1,9 +1,18 @@
 const mongoose = require("mongoose");
 
-const ScorecardSchema = new mongoose.Schema({
-    id: Number,
-    home: String,
-    away: String,
+const ScoreSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true
+    },
+    home: {
+        type: String,
+        required: true
+    },
+    away: {
+        type: String,
+        required: true
+    },
     set1: {
         home: Number,
         away: Number
@@ -26,9 +35,4 @@ const ScorecardSchema = new mongoose.Schema({
     },
 });
 
-const Scorecard = mongoose.model("Scorecard", ScorecardSchema);
-
-module.exports = {
-    Scorecard,
-    ScorecardSchema
-};
+module.exports = mongoose.model("Score", ScoreSchema);

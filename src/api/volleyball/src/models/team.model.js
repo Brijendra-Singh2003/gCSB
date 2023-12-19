@@ -1,29 +1,19 @@
-const { Team } = require("../db/schema/Team");
+const Teams = require("./Team.mongo");
 
 async function getOneTeam(id) {
-    const team = await Team.findById(id);
-    console.log(team);
-    return team;
+    return await Teams.findById(id);
 }
 
 async function getAllTeams() {
-    const teams  = await Team.find({}, {name: 1});
-    return teams;
+    return await Teams.find({}, {name: 1});
 }
 
 async function saveTeam(team) {
-    let temp = await Team.findOneAndUpdate({name: team.name}, team);
-
-    if(!temp) {
-        await Team.create(team);
-    }
-
-    return team;
+    return await Teams.updateOne({name: team.name}, team, {upsert: true});
 }
 
 async function deleteTeam(id) {
-    await Team.findByIdAndDelete(id);
-    return {message: "deleted"};
+    return await Teams.findByIdAndDelete(id);
 }
 
 module.exports = {
