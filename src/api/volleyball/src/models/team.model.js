@@ -7,6 +7,13 @@ async function findTeam(id) {
     return await Teams.find({}, {name: 1});
 }
 
+async function findTeamByName(name) {
+    if(name) {
+        return await Teams.findOne({name: name});
+    }
+    return await Teams.find({}, {name: 1});
+}
+
 async function saveTeam(team) {
     return await Teams.updateOne({name: team.name}, team, {upsert: true});
 }
@@ -17,6 +24,7 @@ async function deleteTeam(id) {
 
 module.exports = {
     findTeam,
+    findTeamByName,
     saveTeam,
     deleteTeam,
 }
