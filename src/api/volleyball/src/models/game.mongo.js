@@ -5,8 +5,6 @@ const GameSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    series: String,
-
     home: {
         type: String,
         required: true

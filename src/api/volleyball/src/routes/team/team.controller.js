@@ -1,21 +1,13 @@
 const { request, response } = require("express");
 const {
-    getOneTeam,
-    getAllTeams,
+    findTeam,
     saveTeam,
     deleteTeam,
 } = require("../../models/team.model");
 
 /**@param {request} req @param {response} res*/
 async function getTeam(req, res) {
-    const id = req.query.id;
-    if (id) {
-        const team = await getOneTeam(id);
-        res.json(team);
-    } else {
-        const teams = await getAllTeams();
-        res.json(teams);
-    }
+    res.json( await findTeam(req.query.id) );
 }
 
 /**@param {request} req @param {response} res*/
@@ -31,9 +23,7 @@ async function updateTeam(req, res) {
 
 /**@param {request} req @param {response} res*/
 async function removeTeam(req, res) {
-    const id = req.body._id;
-    const msg = await deleteTeam(id);
-    res.json(msg);
+    res.json((await deleteTeam(req.body._id)));
 }
 
 module.exports = {

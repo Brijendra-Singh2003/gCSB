@@ -1,10 +1,9 @@
 const Teams = require("./Team.mongo");
 
-async function getOneTeam(id) {
-    return await Teams.findById(id);
-}
-
-async function getAllTeams() {
+async function findTeam(id) {
+    if(id) {
+        return await Teams.findById(id);
+    }
     return await Teams.find({}, {name: 1});
 }
 
@@ -17,8 +16,7 @@ async function deleteTeam(id) {
 }
 
 module.exports = {
-    getOneTeam,
-    getAllTeams,
+    findTeam,
     saveTeam,
     deleteTeam,
 }

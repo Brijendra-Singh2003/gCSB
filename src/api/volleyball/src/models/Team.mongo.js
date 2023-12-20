@@ -15,6 +15,26 @@ const TeamSchema = new mongoose.Schema({
             role: String,
         },
     ],
+    mp: {
+        type: Number,
+        default: 0
+    },
+    w: {
+        type: Number,
+        default: 0
+    },
+    l: {
+        type: Number,
+        default: 0
+    },
+    sw: {
+        type: Number,
+        default: 0
+    },
+    sl: {
+        type: Number,
+        default: 0
+    }
 });
 
 module.exports = mongoose.model("Team", TeamSchema);

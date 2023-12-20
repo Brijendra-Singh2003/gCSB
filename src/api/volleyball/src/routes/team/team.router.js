@@ -1,6 +1,6 @@
 const express = require("express");
 const { getTeam, updateTeam, removeTeam } = require("./team.controller");
-const protectAPI = require("../../lib/protectApi");
+const protectAPI = require("../../middleware/protectApi");
 const teamsRouter = express.Router();
 
 teamsRouter.get("/team", getTeam);

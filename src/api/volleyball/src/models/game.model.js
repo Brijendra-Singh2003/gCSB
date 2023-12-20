@@ -1,13 +1,10 @@
 const Games = require("./game.mongo");
 const { deleteScores } = require("./score.model");
 
-async function getOneGame(id) {
-    return await Games.findById(id);
-}
-
-async function getAllGames(series) {
-    if (series) return await Games.find({ series: series });
-
+async function findGame(id) {
+    if(id) {
+        return await Games.findById(id);
+    }
     return await Games.find();
 }
 
@@ -26,8 +23,7 @@ async function deleteGame(id) {
 }
 
 module.exports = {
-    getOneGame,
-    getAllGames,
+    findGame,
     saveGame,
     deleteGame,
 };

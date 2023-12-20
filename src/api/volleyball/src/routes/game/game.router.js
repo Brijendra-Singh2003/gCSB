@@ -1,6 +1,6 @@
 const express = require("express");
 const { getGame, updateGame, removeGame } = require("./game.controller");
-const protectAPI = require("../../lib/protectApi");
+const protectAPI = require("../../middleware/protectApi");
 const gameRouter = express.Router();
 
 gameRouter.get("/game", getGame);
