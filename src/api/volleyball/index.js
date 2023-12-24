@@ -3,7 +3,7 @@ const { Server } = require("socket.io");
 require("dotenv").config();
 
 const app = require("./src/app");
-const connection = require("./src/db/connection");
+const { connectToDB } = require("./src/db/connection");
 const handleConnection = require("./src/socket");
 const server = http.createServer(app);
 
@@ -12,7 +12,7 @@ const io = new Server(server);
 io.on("connection", handleConnection);
 
 async function startServer() {
-    await connection();
+    await connectToDB();
 
     server.listen(80, ()=>{
         console.log("server live at \nhttp://localhost\t(local)\nhttp://192.168.108.10\t(public)");    // run 'ipconfig /all' to get your public ip

@@ -8,11 +8,11 @@ async function findGame(id) {
     return await Games.find();
 }
 
-async function saveGame(game) {
+async function saveGame({_id, ...rest}) {
     try {
-        return await Games.updateOne({ name: game.name }, game, { upsert: true });
+        return await Games.findByIdAndUpdate(_id, rest, { upsert: true });
     } catch (error) {
-        console.log("error occured when saving game: ", game, error);
+        console.log("error occured when saving game: ", {_id, ...rest}, error);
     }
 }
 
@@ -21,6 +21,12 @@ async function deleteGame(id) {
     const game = Games.findByIdAndDelete(id);
     return await Promise.allSettled([score, game]);
 }
+
+// const gameEvent = Games.watch();
+
+// gameEvent.on("change", (data) => {
+//     console.log("gameEvent: ", data);
+// });
 
 module.exports = {
     findGame,

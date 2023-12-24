@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const connection = async () => {
+exports.connectToDB = async () => {
     try {
         await mongoose.connect(`${process.env.MONGO}?retryWrites=true&w=majority`);
     } catch (err) {
@@ -15,5 +15,3 @@ mongoose.connection.once("open", () => {
 mongoose.connection.on("error", (err) => {
     console.log(err);
 });
-
-module.exports = connection;

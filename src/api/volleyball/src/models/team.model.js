@@ -14,7 +14,7 @@ async function findTeamByName(name) {
     return await Teams.find({}, {name: 1});
 }
 
-async function saveTeam(team) {
+async function saveTeam({_id, ...team}) {
     return await Teams.updateOne({name: team.name}, team, {upsert: true});
 }
 

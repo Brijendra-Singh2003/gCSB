@@ -7,7 +7,7 @@ const {
 
 /**@param {request} req @param {response} res*/
 async function getTeam(req, res) {
-    res.json( await findTeam(req.query.name) );
+    res.json( await findTeam(req.query.id) );
 }
 
 /**@param {request} req @param {response} res*/

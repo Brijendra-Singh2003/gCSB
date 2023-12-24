@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-// const path = require("path");
+const path = require("path");
 const teamsRouter = require("./routes/team/team.router");
 const gameRouter = require("./routes/game/game.router");
 const scoreRouter = require("./routes/score/score.router");
@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(gameRouter);
 app.use(teamsRouter);
 app.use(scoreRouter);
-// app.use(express.static(path.join(__dirname, "..", "secrets", "build")));
+app.use(express.static(path.join(__dirname, "..", "client")));
 
 // app.get("/", (req, res) => {
 //     res.send("<h1>Hello, World!</h1>");
