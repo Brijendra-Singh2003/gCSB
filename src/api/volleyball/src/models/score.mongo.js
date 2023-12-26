@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ScoreSchema = new mongoose.Schema({
-    id: { type: String, required: true },
+    id: { type: mongoose.Types.ObjectId, required: true },
     home: {
         name: { type: String },
         w   : { type: Number, default: 0 },

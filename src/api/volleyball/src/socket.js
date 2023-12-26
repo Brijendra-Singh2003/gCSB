@@ -2,6 +2,7 @@ const { Socket } = require("socket.io");
 const { setScores, getScores } = require("./models/score.model");
 const { saveGame, findGame } = require("./models/game.model");
 const { findTeamByName, saveTeam } = require("./models/team.model");
+// const { broadcast } = require("./routes/score/score.router");
 
 /**@param {Socket} socket*/
 function handleConnection(socket) {
@@ -11,7 +12,6 @@ function handleConnection(socket) {
     socket.once("start", async (gameID, apiKey)=>{
 
         const game = await findGame(gameID);
-        game._id = game.id;
         console.log("starting game:", game);
 
         if(apiKey !== process.env.API_KEY || !(game && game.status !== "ended")) {
@@ -26,6 +26,7 @@ function handleConnection(socket) {
             away: { name: game.away, w: 0, l: 0 },
             set1: { home: 0, away: 0 }
         };
+        // let score = {};
 
         const p1 = setScores(score);
         const p2 = saveGame({...game, status: "live"});
@@ -38,6 +39,7 @@ function handleConnection(socket) {
         socket.on("change",async (data) => {
             await setScores(data);
             console.log("change success: ", data);
+            // broadcast(JSON.stringify(data));
         });
 
         socket.on("end",async (data) => {

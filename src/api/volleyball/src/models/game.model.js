@@ -22,12 +22,6 @@ async function deleteGame(id) {
     return await Promise.allSettled([score, game]);
 }
 
-// const gameEvent = Games.watch();
-
-// gameEvent.on("change", (data) => {
-//     console.log("gameEvent: ", data);
-// });
-
 module.exports = {
     findGame,
     saveGame,
